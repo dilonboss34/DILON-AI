@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+.buildozer/
+.env
+*.log
+bin/
+.kivy/
+
+# Large build artifacts - do NOT commit these
+dist/
+build/
+*.exe
+*.pkg
+*.spec
+main.spec

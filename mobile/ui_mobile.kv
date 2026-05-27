@@ -1,0 +1,138 @@
+# mobile/ui_mobile.kv
+#:kivy 2.0.0
+
+BoxLayout:
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(10)
+    
+    # Header
+    BoxLayout:
+        size_hint_y: None
+        height: dp(60)
+        spacing: dp(10)
+        
+        Label:
+            text: "J.A.R.V.I.S"
+            font_size: '20sp'
+            bold: True
+            color: 0, 0.8, 1, 1  # C.PRI equivalent
+            size_hint_x: 0.6
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.size
+            
+        Label:
+            text: "ONLINE"
+            font_size: '12sp'
+            color: 0, 1, 0.5, 1  # Green equivalent
+            size_hint_x: 0.4
+            halign: 'right'
+            valign: 'middle'
+            text_size: self.size
+    
+    # Main interaction area
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        
+        # Audio visualization area
+        BoxLayout:
+            size_hint_y: 0.4
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 0, 0.05, 0.1, 1  # Dark background
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            
+            JarvisFace:
+                id: jarvis_face
+                size_hint_y: 0.8
+                
+            Label:
+                id: state_label
+                text: "INITIALISING"
+                font_size: '14sp'
+                bold: True
+                color: 0, 0.83, 1.0, 1
+                size_hint_y: 0.2
+                halign: 'center'
+    
+    # Chat/log area
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.4
+        
+        Label:
+            text: "Conversation"
+            font_size: '14sp'
+            bold: True
+            size_hint_y: None
+            height: dp(20)
+            color: 0.5, 0.8, 1, 1
+        
+        ScrollView:
+            GridLayout:
+                id: chat_layout
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(5)
+    
+    # Input area
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(10)
+        
+        TextInput:
+            id: command_input
+            hint_text: "Type a command or tap microphone..."
+            multiline: False
+            size_hint_x: 0.7
+            background_color: 0, 0.1, 0.2, 1
+            foreground_color: 0.8, 0.8, 0.8, 1
+            cursor_color: 0.8, 0.8, 0.8, 1
+            on_text_validate: app.on_submit()
+        
+        Button:
+            text: "🎤"
+            size_hint_x: None
+            width: dp(50)
+            background_color: 0, 0.5, 1, 0.8
+            color: 1, 1, 1, 1
+            on_release: app.on_microphone()
+        
+        Button:
+            text: "📎"
+            size_hint_x: None
+            width: dp(50)
+            background_color: 0, 0.5, 0.8, 0.8
+            color: 1, 1, 1, 1
+            on_release: app.on_file_attach()
+    
+    # Action buttons
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(10)
+        
+        Button:
+            text: "Web Search"
+            background_color: 0, 0.6, 0.4, 0.8
+            color: 1, 1, 1, 1
+            on_release: app.do_web_search()
+        
+        Button:
+            text: "Weather"
+            background_color: 0, 0.6, 0.4, 0.8
+            color: 1, 1, 1, 1
+            on_release: app.do_weather()
+        
+        Button:
+            text: "Camera"
+            background_color: 0, 0.6, 0.4, 0.8
+            color: 1, 1, 1, 1
+            on_release: app.do_camera()

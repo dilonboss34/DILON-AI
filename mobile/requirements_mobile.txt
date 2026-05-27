@@ -1,0 +1,16 @@
+# mobile/requirements_mobile.txt
+# Core requirements for mobile JARVIS
+kivy>=2.0.0
+google-genai
+google-generativeai
+Pillow
+requests
+beautifulsoup4
+duckduckgo-search
+numpy
+psutil
+
+# Optional: For enhanced functionality on specific platforms
+# plyer>=2.0.0  # For platform-independent APIs
+# android>=2.0.0  # For Android-specific features (when building for Android)
+# ios>=2.0.0    # For iOS-specific features (when building for iOS)
