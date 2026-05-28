@@ -1,32 +1,50 @@
 # mobile/ui_mobile.kv
 #:kivy 2.0.0
 
+<SleekButton@Button>:
+    background_normal: ''
+    background_color: 0.08, 0.08, 0.08, 1
+    color: 0.8, 0.8, 0.8, 1
+    font_size: '14sp'
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.15, 1
+        Line:
+            width: 1
+            rounded_rectangle: self.x, self.y, self.width, self.height, dp(5)
+
 BoxLayout:
     orientation: 'vertical'
-    padding: dp(10)
-    spacing: dp(10)
+    padding: dp(20)
+    spacing: dp(15)
+    canvas.before:
+        Color:
+            rgba: 0.02, 0.02, 0.02, 1  # Sleek dark background
+        Rectangle:
+            pos: self.pos
+            size: self.size
     
     # Header
     BoxLayout:
         size_hint_y: None
-        height: dp(60)
-        spacing: dp(10)
+        height: dp(40)
         
         Label:
             text: "J.A.R.V.I.S"
-            font_size: '20sp'
+            font_name: 'Roboto' if platform == 'android' else 'Arial'
+            font_size: '22sp'
             bold: True
-            color: 0, 0.8, 1, 1  # C.PRI equivalent
-            size_hint_x: 0.6
+            color: 0.9, 0.9, 0.9, 1  # Pure minimalist white
+            size_hint_x: 0.7
             halign: 'left'
             valign: 'middle'
             text_size: self.size
             
         Label:
             text: "ONLINE"
-            font_size: '12sp'
-            color: 0, 1, 0.5, 1  # Green equivalent
-            size_hint_x: 0.4
+            font_size: '10sp'
+            color: 0.4, 0.4, 0.4, 1  # Subtle gray
+            size_hint_x: 0.3
             halign: 'right'
             valign: 'middle'
             text_size: self.size
@@ -38,40 +56,25 @@ BoxLayout:
         
         # Audio visualization area
         BoxLayout:
-            size_hint_y: 0.4
+            size_hint_y: 0.35
             orientation: 'vertical'
-            canvas.before:
-                Color:
-                    rgba: 0, 0.05, 0.1, 1  # Dark background
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
             
             JarvisFace:
                 id: jarvis_face
-                size_hint_y: 0.8
+                size_hint_y: 0.85
                 
             Label:
                 id: state_label
                 text: "INITIALISING"
-                font_size: '14sp'
-                bold: True
-                color: 0, 0.83, 1.0, 1
-                size_hint_y: 0.2
+                font_size: '11sp'
+                color: 0.6, 0.6, 0.6, 1
+                size_hint_y: 0.15
                 halign: 'center'
     
     # Chat/log area
     BoxLayout:
         orientation: 'vertical'
-        size_hint_y: 0.4
-        
-        Label:
-            text: "Conversation"
-            font_size: '14sp'
-            bold: True
-            size_hint_y: None
-            height: dp(20)
-            color: 0.5, 0.8, 1, 1
+        size_hint_y: 0.45
         
         ScrollView:
             GridLayout:
@@ -79,7 +82,7 @@ BoxLayout:
                 cols: 1
                 size_hint_y: None
                 height: self.minimum_height
-                spacing: dp(5)
+                spacing: dp(12)
     
     # Input area
     BoxLayout:
@@ -89,50 +92,49 @@ BoxLayout:
         
         TextInput:
             id: command_input
-            hint_text: "Type a command or tap microphone..."
+            hint_text: "Message..."
             multiline: False
             size_hint_x: 0.7
-            background_color: 0, 0.1, 0.2, 1
-            foreground_color: 0.8, 0.8, 0.8, 1
-            cursor_color: 0.8, 0.8, 0.8, 1
+            background_normal: ''
+            background_active: ''
+            background_color: 0.05, 0.05, 0.05, 1
+            foreground_color: 0.9, 0.9, 0.9, 1
+            cursor_color: 0.9, 0.9, 0.9, 1
+            padding: [dp(15), dp(15)]
             on_text_validate: app.on_submit()
+            canvas.after:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 1
+                Line:
+                    width: 1
+                    rounded_rectangle: self.x, self.y, self.width, self.height, dp(5)
         
-        Button:
+        SleekButton:
             text: "🎤"
             size_hint_x: None
             width: dp(50)
-            background_color: 0, 0.5, 1, 0.8
-            color: 1, 1, 1, 1
             on_release: app.on_microphone()
         
-        Button:
+        SleekButton:
             text: "📎"
             size_hint_x: None
             width: dp(50)
-            background_color: 0, 0.5, 0.8, 0.8
-            color: 1, 1, 1, 1
             on_release: app.on_file_attach()
     
     # Action buttons
     BoxLayout:
         size_hint_y: None
-        height: dp(50)
+        height: dp(40)
         spacing: dp(10)
         
-        Button:
-            text: "Web Search"
-            background_color: 0, 0.6, 0.4, 0.8
-            color: 1, 1, 1, 1
+        SleekButton:
+            text: "Search"
             on_release: app.do_web_search()
         
-        Button:
+        SleekButton:
             text: "Weather"
-            background_color: 0, 0.6, 0.4, 0.8
-            color: 1, 1, 1, 1
             on_release: app.do_weather()
         
-        Button:
+        SleekButton:
             text: "Camera"
-            background_color: 0, 0.6, 0.4, 0.8
-            color: 1, 1, 1, 1
             on_release: app.do_camera()

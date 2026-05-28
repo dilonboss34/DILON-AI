@@ -54,22 +54,22 @@ class ChatLabel(Label):
         
         # Set colors based on sender
         if is_user:
-            self.color = (0.8, 0.8, 0.8, 1)  # Light gray for user
+            self.color = (0.9, 0.9, 0.9, 1)  # White text for user
             self.canvas.before.clear()
             with self.canvas.before:
                 from kivy.graphics import Color, RoundedRectangle
-                Color(0, 0.3, 0.5, 0.3)  # Blue tint
+                Color(0.2, 0.2, 0.2, 1)  # Medium dark gray
                 self.rect = RoundedRectangle(
                     pos=self.pos, 
                     size=self.size,
                     radius=[dp(10),]
                 )
         else:
-            self.color = (0, 0.8, 1, 1)  # C.PRI for Jarvis
+            self.color = (0.7, 0.7, 0.7, 1)  # Light gray text for Jarvis
             self.canvas.before.clear()
             with self.canvas.before:
                 from kivy.graphics import Color, RoundedRectangle
-                Color(0, 0.1, 0.2, 0.5)  # Dark blue background
+                Color(0.08, 0.08, 0.08, 1)  # Very dark gray background
                 self.rect = RoundedRectangle(
                     pos=self.pos, 
                     size=self.size,
@@ -129,14 +129,14 @@ class JarvisFace(Widget):
             fw = min(W, H)
             
             # Halo
-            Color(0, 0.83, 1.0, self.halo / 255.0 * 0.1) # C.PRI
+            Color(1.0, 1.0, 1.0, self.halo / 255.0 * 0.08) # White soft halo
             for i in range(5):
                 r = fw * 0.31 * (1.8 - i * 0.15)
                 Ellipse(pos=(cx-r, cy-r), size=(r*2, r*2))
                 
             # Rings
-            Color(0, 0.83, 1.0, self.halo / 255.0)
-            arcs = [(0.48, 3, 115, 78), (0.40, 2, 78, 55), (0.32, 1, 56, 40)]
+            Color(0.9, 0.9, 0.9, self.halo / 255.0 * 0.8) # Light gray
+            arcs = [(0.48, 1.5, 115, 78), (0.40, 1, 78, 55), (0.32, 1, 56, 40)]
             for idx, (r_frac, w_r, arc_l, gap) in enumerate(arcs):
                 ring_r = fw * r_frac
                 base = self.rings[idx]
@@ -148,11 +148,11 @@ class JarvisFace(Widget):
             # Scanners
             sr = fw * 0.50
             ex = 75 if is_speaking else 44
-            Color(0, 0.83, 1.0, min(1.0, self.halo * 1.5 / 255.0))
-            Line(circle=(cx, cy, sr, self.scan, self.scan + ex), width=2.5)
+            Color(0.8, 0.8, 0.8, min(1.0, self.halo * 1.5 / 255.0))
+            Line(circle=(cx, cy, sr, self.scan, self.scan + ex), width=1.5)
             
-            Color(1.0, 0.42, 0.0, min(1.0, self.halo / 255.0)) # C.ACC
-            Line(circle=(cx, cy, sr, self.scan2, self.scan2 + ex), width=1.5)
+            Color(1.0, 1.0, 1.0, min(1.0, self.halo / 255.0))
+            Line(circle=(cx, cy, sr, self.scan2, self.scan2 + ex), width=1.0)
             
             # Central Orb
             orb_r = fw * 0.27
@@ -160,7 +160,7 @@ class JarvisFace(Widget):
                 r2 = orb_r * i / 8.0
                 frc = i / 8.0
                 a = min(1.0, self.halo * 1.1 * frc / 255.0)
-                Color(0, 60/255.0 * frc, 110/255.0 * frc, a)
+                Color(1.0, 1.0, 1.0, a * 0.15)  # Soft white glow
                 Ellipse(pos=(cx-r2, cy-r2), size=(r2*2, r2*2))
 
 
